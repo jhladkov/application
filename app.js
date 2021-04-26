@@ -43,14 +43,31 @@ form.addEventListener('submit', (e) => {
 
     btnRemove.forEach((item, i) => {
         item.onclick = () => {
-            toDoArray.splice(i,1);
+            toDoArray.splice(i, 1);
             listTaskToDoItem[i].remove();
             console.log(toDoArray);
         }
     });
-    checkBox.forEach((item) => {
+    checkBox.forEach((item, i) => {
         item.onclick = () => {
+            doneArray.push({
+                text: toDoArray[i].text,
+                status: 'Done',
+                id: getRandomID(),
+            })
+            toDoArray.splice(i, 1);
+            listTaskToDoItem[i].remove();
+            console.log(doneArray)
+            let textValueDone;
 
+            const textDone = () => {
+                doneArray.forEach(item => {
+                    textValueDone = item.text;
+                })
+                return textValueDone;
+            }
+
+            listTaskDone.innerHTML += textDone();
         }
     })
 })
