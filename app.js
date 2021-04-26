@@ -1,74 +1,80 @@
-// возвращает уникальный короткий ID в заданном числовом диапазоне
-function getRandomID() {
+const form = document.querySelector('.form');
+const input = document.querySelector('.task');
+const taskTodoList = document.querySelector('.mask-list');
+const taskListDone = document.querySelector('.complete-list');
+
+let todoList = [];
+
+const enums = {
+    taskStatuses: {
+      TODO: 'todo',
+      DONE: 'done',
+    },
+}
+
+const getRandomID = () => {
     return Math.floor(Math.random() * (1679615 - 1 + 1)) + 1;
 }
 
-const form = document.querySelector('.form');
-const addTask = document.querySelector('.task');
-const listTaskToDo = document.querySelector('.mask-list');
-const listTaskDone = document.querySelector('.complete-list');
+const getTemplate = (value, id, status) => {
+    const checkState = status === enums.taskStatuses.TODO ? '' : 'checked';
+    return  `<li class="mask-list-item">
+              <div>
+                <input ${checkState} onclick="changeTaskStatus(${id})" class="compl" type="checkbox">
+                <span>${value}</span>
+              </div>
+              <button onclick="removeTask(${id})" class="btn-remove close">Remove</button>
+            </li>`;
+}
 
-let toDoArray = [];
-let doneArray = [];
+const resetInputValue = () => {
+    input.value = '';
+}
+
+const updateDOM = () => {
+    addListToHtml(taskTodoList, enums.taskStatuses.TODO);
+    addListToHtml(taskListDone, enums.taskStatuses.DONE);
+}
+
+const addListToHtml = (nodeList, status) => {
+    nodeList.innerHTML = todoList.filter((item) => item.status === status).map((item) => item.text).join('');
+}
+
+const removeTask = (id) => {
+    todoList = todoList.filter((item) => item.id !== id); // отфильтруй массив что бы у его елементов не совпадал id с аргументом id
+    updateDOM();
+}
+
+const reverseStatus = (item) => {
+    return item.status === enums.taskStatuses.TODO
+        ? enums.taskStatuses.DONE
+        : enums.taskStatuses.TODO
+}
+
+const changeTaskStatus = (id) => {
+    todoList = todoList.map((item) => {
+        if (item.id === id) {
+            return {
+                ...item,
+                text: getTemplate(item.value, item.id, reverseStatus(item)),
+                status: reverseStatus(item),
+            }
+        }
+        return item;
+    })
+    updateDOM();
+}
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    toDoArray.push({
-        text: `
-            <li class="mask-list-item">
-              <div>
-                <input class="compl" type="checkbox">
-                <span>${addTask.value}</span>
-              </div>
-              <button class="btn-remove close">Remove</button>
-            </li>        `,
-        status: 'To Do',
-        id: getRandomID(),
+    const generateId = getRandomID();
+    todoList.push({
+        text: getTemplate(input.value, generateId, enums.taskStatuses.TODO),
+        value: input.value,
+        status: enums.taskStatuses.TODO,
+        id: generateId,
     })
-    addTask.value = '';
-    let textValue;
-
-    const text = () => {
-        toDoArray.forEach(item => {
-            textValue = item.text;
-        })
-        return textValue;
-    }
-
-    listTaskToDo.innerHTML += text();
-
-    let listTaskToDoItem = document.querySelectorAll('.mask-list-item'); // li
-    let btnRemove = document.querySelectorAll('.close'); // btn-remove
-    let checkBox = document.querySelectorAll('.compl');
-
-    btnRemove.forEach((item, i) => {
-        item.onclick = () => {
-            toDoArray.splice(i, 1);
-            listTaskToDoItem[i].remove();
-            console.log(toDoArray);
-        }
-    });
-    checkBox.forEach((item, i) => {
-        item.onclick = () => {
-            doneArray.push({
-                text: toDoArray[i].text,
-                status: 'Done',
-                id: getRandomID(),
-            })
-            toDoArray.splice(i, 1);
-            listTaskToDoItem[i].remove();
-            console.log(doneArray)
-            let textValueDone;
-
-            const textDone = () => {
-                doneArray.forEach(item => {
-                    textValueDone = item.text;
-                })
-                return textValueDone;
-            }
-
-            listTaskDone.innerHTML += textDone();
-        }
-    })
+    resetInputValue();
+    addListToHtml(taskTodoList, enums.taskStatuses.TODO);
 })
 
