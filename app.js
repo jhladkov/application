@@ -19,9 +19,10 @@ const getRandomID = () => {
 const getTemplate = (value, id, status) => {
     const checkState = status === enums.taskStatuses.TODO ? '' : 'checked';
     return `<li class="mask-list-item">
-              <div>
+              <div class="inner">
                 <input ${checkState} onclick="changeTaskStatus(${id})" class="compl" type="checkbox">
-                <span>${value}</span>
+                <span></span>
+                <p class="text">${value}</p>
               </div>
               <button onclick="removeTask(${id})" class="btn-remove close">Remove</button>
             </li>`;
@@ -38,13 +39,12 @@ const updateDOM = () => {
 
 const addListToHtml = (nodeList, status) => {
     nodeList.innerHTML = todoList.filter((item) => item.status === status).map((item) => item.text).join('');
-    console.log(todoList);
 }
 
 const removeTask = (id) => {
     todoList = todoList.filter((item) => item.id !== id); // отфильтруй массив что бы у его елементов не совпадал id с аргументом id
     updateDOM();
-    setItemInLocal();
+    setItemInLocalStorage(todoList);
 }
 
 const reverseStatus = (item) => {
@@ -64,19 +64,19 @@ const changeTaskStatus = (id) => {
         }
         return item;
     })
-    setItemInLocal()
     updateDOM();
+    setItemInLocalStorage(todoList)
 }
 
-const setItemInLocal = () => {
-    localStorage.setItem('DOM', JSON.stringify(todoList));
+const setItemInLocalStorage = (arr) => {
+    localStorage.setItem('DOM', JSON.stringify(arr));
 }
 
 window.onload = () => {
     if (JSON.parse(localStorage.getItem('DOM'))) {
         todoList = JSON.parse(localStorage.getItem('DOM'));
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
-        changeTaskStatus()
+        changeTaskStatus();
     }
 }
 
@@ -91,6 +91,6 @@ form.addEventListener('submit', (e) => {
     })
     resetInputValue();
     addListToHtml(taskTodoList, enums.taskStatuses.TODO);
-    setItemInLocal();
+    setItemInLocalStorage(todoList);
 })
 
