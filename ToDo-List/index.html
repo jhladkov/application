@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDo List</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="media.css">
+</head>
+<body>
+  <!-- Start App -->
+  <div id="app">
+    <div class="header">
+      <div class="container">
+        <div class="logo">ToDo List</div>
+        <form class="form">
+          <input class="task"
+            type="text">
+          <button class="btn">Add a new task</button>
+        </form>
+      </div>
+    </div>
+    <div class="container">
+      <h2>
+        <span>To Do</span>
+        <span class="mask-num"></span>
+      </h2>
+      <ul class="mask-list">
+
+      </ul>
+      <h2>
+        <span>Done</span>
+        <span class="mask-num"></span>
+      </h2>
+      <ul class="mask-list complete-list">
+
+      </ul>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
