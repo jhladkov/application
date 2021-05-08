@@ -123,6 +123,10 @@ const addStructure_Weather = () => {
 }
 const fetchNewsCOVID = (url) => {
     fetch(url, {
+        headers: {
+            origin: 'http://localhost:63342',
+             referer: 'http://localhost:63342/',
+        },
         curl: ' https://newsapi.org/v2/everything',
         q: 'Covid',
         from: '2021-05-08',
