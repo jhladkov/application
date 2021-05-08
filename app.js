@@ -6,6 +6,7 @@ const additionalInformationButton_1 = document.querySelector('#one');
 const additionalInformationButton_2 = document.querySelector('#two');
 const informationWrapper = document.querySelector('.information-wrapper')
 
+alert(13123123)
 const covidNewsUrl = 'https://newsapi.org/v2/everything?q=Covid&from=2021-05-08&sortBy=popularity&apiKey=f4494ea29c1947438f56dfb0bf11357b';
 const weatherNewsUrl = 'https://api.openweathermap.org/data/2.5/weather?q=Kharkov&appid=991a635ee76f728662527e36fede40d0';
 let todoList = [];
