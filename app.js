@@ -7,7 +7,7 @@ const additionalInformationButton_2 = document.querySelector('#two');
 const informationWrapper = document.querySelector('.information-wrapper')
 
 const covidNewsUrl = 'https://newsapi.org/v2/everything?q=Covid&from=2021-05-08&sortBy=popularity&apiKey=f4494ea29c1947438f56dfb0bf11357b';
-const weatherNewsUrl = 'http://api.openweathermap.org/data/2.5/weather?q=Kharkov&appid=991a635ee76f728662527e36fede40d0';
+const weatherNewsUrl = 'https://api.openweathermap.org/data/2.5/weather?q=Kharkov&appid=991a635ee76f728662527e36fede40d0';
 let todoList = [];
 
 const enums = {
@@ -142,7 +142,7 @@ const fetchNewsWeather = (url) => {
         .then(data => {
             document.querySelector('.information-wrapper-cont').style.backgroundColor = '#e2dfdf';
             document.querySelector('.information-title').innerHTML = data.name;
-            document.querySelector('.picture').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+            document.querySelector('.picture').src = `https://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`
             document.querySelector('.information-description').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
         })
 }
