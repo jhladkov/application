@@ -7,6 +7,7 @@ ul,li{
 body {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 300;
+
 }
 button{
     cursor: pointer;
@@ -18,6 +19,9 @@ p{
     word-break: break-word;
     display: inline-block;
     margin: 0 20px 0 0;
+}
+img{
+    width: 100%;
 }
 h2 {
   display: flex;
@@ -185,6 +189,23 @@ input[type="checkbox"]:not(:checked) + span::before{
    border-radius: 2px;
    border: 2px solid #5d575f;
 }
+.information-inner-button{
+    background-color: limegreen;
+    border: 1px solid limegreen;
+    margin-bottom: 15px;
+    color: #fff;
+    width: 50%;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    font-size: 12px;
+    height: 40px;
+    outline: none;
+    transition: 0.2s;
+}
+.information-inner-button:last-child{
+    margin-bottom: 0;
+}
 input[type="checkbox"]:not(:checked) + span::after{
    content:'';
    position: absolute;
@@ -195,4 +216,45 @@ input[type="checkbox"]:not(:checked) + span::after{
    left: 4px;
    top: calc(50% - 6px);
    background-color: #7d25a9;
+}
+.information-wrapper-cont{
+    display: inline-block;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 30px;
+    background-color: white;
+}
+.information-img{
+    max-width: 300px;
+    margin-bottom: 5px;
+}
+.information-wrapper{
+    margin-top: 10px;
+
+}
+.title{
+    margin: 0;
+}
+.picture-inner {
+    max-width: 70px;
+}
+.inf{
+    margin: 0;
+}
+#h2{
+    font-size: 23px;
+}
+.information-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.information-description {
+    font-family: 'Roboto', sans-serif;
+}
+.sup-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

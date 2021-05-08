@@ -2,7 +2,12 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.task');
 const taskTodoList = document.querySelector('.mask-list');
 const taskListDone = document.querySelector('.complete-list');
+const additionalInformationButton_1 = document.querySelector('#one');
+const additionalInformationButton_2 = document.querySelector('#two');
+const informationWrapper = document.querySelector('.information-wrapper')
 
+const covidNewsUrl = 'https://newsapi.org/v2/everything?q=Covid&from=2021-05-08&sortBy=popularity&apiKey=f4494ea29c1947438f56dfb0bf11357b';
+const weatherNewsUrl = 'http://api.openweathermap.org/data/2.5/weather?q=Kharkov&appid=991a635ee76f728662527e36fede40d0';
 let todoList = [];
 
 const enums = {
@@ -92,5 +97,71 @@ form.addEventListener('submit', (e) => {
     resetInputValue();
     addListToHtml(taskTodoList, enums.taskStatuses.TODO);
     setItemInLocalStorage(todoList);
+})
+const addStructure_COVID = () => {
+    informationWrapper.innerHTML = '';
+    informationWrapper.innerHTML = `
+    <h3 class="information-title"></h3>
+    <div class="information-img">
+        <a class="link-to-source" target="_blank" href=""><img class="picture" src="" alt=""></a>
+    </div>
+    <p class="information-description"></p>
+`
+}
+const addStructure_Weather = () => {
+    informationWrapper.innerHTML = '';
+    informationWrapper.innerHTML = `
+    <div class="sup-wrapper">
+        <div class="information-wrapper-cont">
+             <h3 class="information-title title"></h3>
+             <div class="picture-inner" ><img src="" alt="" class="picture"></div>
+             <p class="information-description inf"></p>
+         </div>
+     </div>
+    `
+}
+const fetchNewsCOVID = (url) => {
+    fetch(url, {
+        curl: ' https://newsapi.org/v2/everything',
+        q: 'Covid',
+        from: '2021-05-08',
+        sortBy: 'popularity',
+        apiKey: 'f4494ea29c1947438f56dfb0bf11357b',
+    })
+        .then(res => res.json())
+        .then(data => {
+            document.querySelector('.information-title').innerHTML = data.articles[0].title;
+            document.querySelector('.information-description').innerHTML = data.articles[0].description
+            document.querySelector('.picture').src = data.articles[0].urlToImage
+            document.querySelector('.link-to-source').href = data.articles[0].url
+        })
+}
+const fetchNewsWeather = (url) => {
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            document.querySelector('.information-wrapper-cont').style.backgroundColor = '#e2dfdf';
+            document.querySelector('.information-title').innerHTML = data.name;
+            document.querySelector('.picture').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+            document.querySelector('.information-description').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
+        })
+}
+
+additionalInformationButton_1.addEventListener('click', () => {
+    try {
+        addStructure_COVID()
+        fetchNewsCOVID(covidNewsUrl)
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+additionalInformationButton_2.addEventListener('click', () => {
+    try {
+        addStructure_Weather();
+        fetchNewsWeather(weatherNewsUrl);
+    }catch (err) {
+        console.log(err)
+    }
 })
 
