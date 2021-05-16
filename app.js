@@ -69,15 +69,39 @@ const changeTaskStatus = (id) => {
 }
 
 const setItemInLocalStorage = (arr) => {
-    localStorage.setItem('DOM', JSON.stringify(arr));
+    localStorage.setItem('task', JSON.stringify(arr));
+}
+const notifyMe = () => {
+    let notification = new Notification('To-Do List', {
+        tag: 'ache-mail',
+        body: 'Пора выполнить задачи',
+        icon: 'https://itproger.com/img/notify.png'
+    })
+}
+
+const notifySet = () => {
+    if (!('Notification' in window)) alert('Ваш браузер не поддерживает уведомления');
+    else if (Notification.permission === 'granted') {
+        setInterval(notifyMe, 60000);
+    } else if (Notification.permission === 'denied') {
+        Notification.requestPermission((permission) => {
+            if (!('permission' in Notification)) {
+                Notification.permission = permission;
+            }
+            if (permission === 'granted') {
+                setInterval(notifyMe, 60000)
+            }
+        })
+    }
 }
 
 window.onload = () => {
-    if (JSON.parse(localStorage.getItem('DOM'))) {
-        todoList = JSON.parse(localStorage.getItem('DOM'));
+    if (JSON.parse(localStorage.getItem('task'))) {
+        todoList = JSON.parse(localStorage.getItem('task'));
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
         changeTaskStatus();
     }
+    notifySet()
 }
 
 form.addEventListener('submit', (e) => {
