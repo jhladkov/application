@@ -89,13 +89,13 @@ const showNotification = () => {
         window.open('https://jhladkov.github.io/application/', '_blank');
     });
 }
-const notifyMe = (ms) => {
+const notifyMe = async (ms) => {
     let granted = false;
 
     if (Notification.permission === 'granted') {
         granted = true;
     } else if (Notification.permission !== 'denied') {
-        let permission =  Notification.requestPermission();
+        let permission = await Notification.requestPermission();
         granted = permission === 'granted' ? true : false;
     }
 
