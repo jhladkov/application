@@ -2,8 +2,11 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.task');
 const taskTodoList = document.querySelector('.mask-list');
 const taskListDone = document.querySelector('.complete-list');
+const selectTime = document.querySelector('.select')
+const buttonSaveTime = document.querySelector('.save-time');
 
 let todoList = [];
+
 
 const enums = {
     taskStatuses: {
@@ -71,8 +74,14 @@ const changeTaskStatus = (id) => {
 const setItemInLocalStorage = (arr) => {
     localStorage.setItem('task', JSON.stringify(arr));
 }
+
+buttonSaveTime.addEventListener('click', () => {
+    if (selectTime.value === 'disable') return;
+    notifySet(parseInt(((selectTime.value * 60) * 60) * 1000));
+})
+
 const notifyMe = () => {
-    let notification = new Notification('To-Do List', {
+     new Notification('To-Do List', {
         tag: 'ache-mail',
         body: 'Пора выполнить задачи',
         icon: 'https://itproger.com/img/notify.png'
@@ -81,17 +90,13 @@ const notifyMe = () => {
 
 const notifySet = () => {
     if (!('Notification' in window)) alert('Ваш браузер не поддерживает уведомления');
-    else if (Notification.permission === 'granted') {
+    Notification.requestPermission(function (permission) {
+        if (permission === 'granted') {
+            setInterval(notifyMe, 60000)
+        }
+    })
+     if (Notification.permission === 'granted') {
         setInterval(notifyMe, 60000);
-    } else if (Notification.permission === 'denied') {
-        Notification.requestPermission((permission) => {
-            if (!('permission' in Notification)) {
-                Notification.permission = permission;
-            }
-            if (permission === 'granted') {
-                setInterval(notifyMe, 60000)
-            }
-        })
     }
 }
 
