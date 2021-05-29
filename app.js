@@ -84,7 +84,6 @@ const notifyMe = () => {
      new Notification('To-Do List', {
         tag: 'ache-mail',
         body: 'Пора выполнить задачи',
-        icon: 'https://itproger.com/img/notify.png'
     })
 }
 
