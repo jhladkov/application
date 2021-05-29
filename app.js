@@ -77,8 +77,31 @@ const setItemInLocalStorage = (arr) => {
 
 buttonSaveTime.addEventListener('click', () => {
     if (selectTime.value === 'disable') return;
-    // notifySet(parseInt(((selectTime.value * 60) * 60) * 1000));
+    notifyMe(parseInt(((selectTime.value * 60) * 60) * 1000));
 })
+
+const showNotification = () => {
+    const notification = new Notification('To-Do List', {
+        body: 'Пора выполнять задачи',
+        icon: 'https://www.javascripttutorial.net/wp-content/uploads/2020/09/js.png'
+    });
+    notification.addEventListener('click', () => {
+        window.open('https://jhladkov.github.io/application/', '_blank');
+    });
+}
+const notifyMe = (ms) => {
+    let granted = false;
+
+    if (Notification.permission === 'granted') {
+        granted = true;
+    } else if (Notification.permission !== 'denied') {
+        let permission =  Notification.requestPermission();
+        granted = permission === 'granted' ? true : false;
+    }
+
+    granted ? setInterval(showNotification,ms) : console.log('Вы отменили сообщения');
+}
+
 
 // const notifyMe = () => {
 //     let notification = new Notification('To-Do List', {
@@ -88,37 +111,25 @@ buttonSaveTime.addEventListener('click', () => {
 // }
 //
 // const notifySet = () => {
-//     if (!('Notification' in window)) alert('Ваш браузер не поддерживает уведомления');
-//     Notification.requestPermission(function (permission) {
+//     Notification.requestPermission(() => (permission) {
 //         if (permission === 'granted') {
-//             setInterval(notifyMe, 60000)
+//             setInterval(showNotification, 60000)
 //         }
 //     })
 //      if (Notification.permission === 'granted') {
-//         setInterval(notifyMe, 60000);
+//         setInterval(showNotification, 60000);
 //     }
 // }
 
-const showNotification = () => {
-    // create a new notification
-    const notification = new Notification('JavaScript Notification API', {
-        body: 'This is a JavaScript Notification API demo',
-        // icon: './img/js.png'
-    });
-    // navigate to a URL when clicked
-    notification.addEventListener('click', () => {
-        window.open('https://www.javascripttutorial.net/web-apis/javascript-notification/', '_blank');
-    });
-}
 
-window.onload = () => {
+window.onload = async () => {
     if (JSON.parse(localStorage.getItem('task'))) {
         todoList = JSON.parse(localStorage.getItem('task'));
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
         changeTaskStatus();
     }
-    // notifySet()
-    showNotification()
+
+
 }
 
 form.addEventListener('submit', (e) => {
