@@ -77,26 +77,38 @@ const setItemInLocalStorage = (arr) => {
 
 buttonSaveTime.addEventListener('click', () => {
     if (selectTime.value === 'disable') return;
-    notifySet(parseInt(((selectTime.value * 60) * 60) * 1000));
+    // notifySet(parseInt(((selectTime.value * 60) * 60) * 1000));
 })
 
-const notifyMe = () => {
-     new Notification('To-Do List', {
-        tag: 'ache-mail',
-        body: 'Пора выполнить задачи',
-    })
-}
+// const notifyMe = () => {
+//     let notification = new Notification('To-Do List', {
+//         tag: 'ache-mail',
+//         body: 'Пора выполнить задачи'
+//     })
+// }
+//
+// const notifySet = () => {
+//     if (!('Notification' in window)) alert('Ваш браузер не поддерживает уведомления');
+//     Notification.requestPermission(function (permission) {
+//         if (permission === 'granted') {
+//             setInterval(notifyMe, 60000)
+//         }
+//     })
+//      if (Notification.permission === 'granted') {
+//         setInterval(notifyMe, 60000);
+//     }
+// }
 
-const notifySet = () => {
-    if (!('Notification' in window)) alert('Ваш браузер не поддерживает уведомления');
-    Notification.requestPermission(function (permission) {
-        if (permission === 'granted') {
-            setInterval(notifyMe, 60000)
-        }
-    })
-     if (Notification.permission === 'granted') {
-        setInterval(notifyMe, 60000);
-    }
+const showNotification = () => {
+    // create a new notification
+    const notification = new Notification('JavaScript Notification API', {
+        body: 'This is a JavaScript Notification API demo',
+        // icon: './img/js.png'
+    });
+    // navigate to a URL when clicked
+    notification.addEventListener('click', () => {
+        window.open('https://www.javascripttutorial.net/web-apis/javascript-notification/', '_blank');
+    });
 }
 
 window.onload = () => {
@@ -105,7 +117,8 @@ window.onload = () => {
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
         changeTaskStatus();
     }
-    notifySet()
+    // notifySet()
+    showNotification()
 }
 
 form.addEventListener('submit', (e) => {
