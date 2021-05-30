@@ -2,8 +2,8 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.task');
 const taskTodoList = document.querySelector('.mask-list');
 const taskListDone = document.querySelector('.complete-list');
-const selectTime = document.querySelector('.select')
-const buttonSaveTime = document.querySelector('.save-time');
+// const selectTime = document.querySelector('.select')
+// const buttonSaveTime = document.querySelector('.save-time');
 
 let todoList = [];
 
@@ -74,42 +74,42 @@ const setItemInLocalStorage = (arr) => {
     localStorage.setItem('task', JSON.stringify(arr));
 }
 
-buttonSaveTime.addEventListener('click', () => {
-    if (selectTime.value === 'disable') return;
-    notifyMe(parseInt(((selectTime.value * 60) * 60) * 1000));
-})
+// buttonSaveTime.addEventListener('click', () => {
+//     if (selectTime.value === 'disable') return;
+//     notifyMe(parseInt(((selectTime.value * 60) * 60) * 1000));
+// })
 
-const showNotification = () => {
-    const notification = new Notification('To-Do List', {
-        body: 'Пора выполнять задачи',
-        icon: 'https://www.javascripttutorial.net/wp-content/uploads/2020/09/js.png'
-    });
-    notification.addEventListener('click', () => {
-        window.open('https://jhladkov.github.io/application/', '_blank');
-    });
-}
+// const showNotification = () => {
+//     const notification = new Notification('To-Do List', {
+//         body: 'Пора выполнять задачи',
+//         icon: 'https://www.javascripttutorial.net/wp-content/uploads/2020/09/js.png'
+//     });
+//     notification.addEventListener('click', () => {
+//         window.open('https://jhladkov.github.io/application/', '_blank');
+//     });
+// }
 //test
-const test = () => {
-    let data = new Date();
-    if (data.getMinutes() === 40) {
-        clearInterval(intervalNotification)
-        return showNotification()
-    }
-}
-
-const notifyMe = async () => {
-    let granted = false;
-
-    if (Notification.permission === 'granted') {
-        granted = true;
-    } else if (Notification.permission !== 'denied') {
-        let permission =  await Notification.requestPermission();
-        granted = permission === 'granted' ? true : false;
-    }
-
-    granted ? intervalNotification : console.log('Вы отменили сообщения');
-}
-let intervalNotification = setInterval(test, 1000)
+// const test = () => {
+//     let data = new Date();
+//     if (data.getMinutes() === 40) {
+//         clearInterval(intervalNotification)
+//         return showNotification()
+//     }
+// }
+//
+// const notifyMe = async () => {
+//     let granted = false;
+//
+//     if (Notification.permission === 'granted') {
+//         granted = true;
+//     } else if (Notification.permission !== 'denied') {
+//         let permission =  await Notification.requestPermission();
+//         granted = permission === 'granted' ? true : false;
+//     }
+//
+//     granted ? intervalNotification : console.log('Вы отменили сообщения');
+// }
+// let intervalNotification = setInterval(test, 1000)
 //
 
 window.onload = async () => {
@@ -118,8 +118,6 @@ window.onload = async () => {
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
         changeTaskStatus();
     }
-    notifyMe()
-
 }
 
 form.addEventListener('submit', (e) => {
