@@ -7,7 +7,6 @@ const buttonSaveTime = document.querySelector('.save-time');
 
 let todoList = [];
 
-
 const enums = {
     taskStatuses: {
         TODO: 'todo',
@@ -89,38 +88,29 @@ const showNotification = () => {
         window.open('https://jhladkov.github.io/application/', '_blank');
     });
 }
-const notifyMe = async (ms) => {
+//test
+const test = () => {
+    let data = new Date();
+    if (data.getMinutes() === 40) {
+        clearInterval(intervalNotification)
+        return showNotification()
+    }
+}
+
+const notifyMe = async () => {
     let granted = false;
 
     if (Notification.permission === 'granted') {
         granted = true;
     } else if (Notification.permission !== 'denied') {
-        let permission = await Notification.requestPermission();
+        let permission =  await Notification.requestPermission();
         granted = permission === 'granted' ? true : false;
     }
 
-    granted ? setInterval(showNotification,ms) : console.log('Вы отменили сообщения');
+    granted ? intervalNotification : console.log('Вы отменили сообщения');
 }
-
-
-// const notifyMe = () => {
-//     let notification = new Notification('To-Do List', {
-//         tag: 'ache-mail',
-//         body: 'Пора выполнить задачи'
-//     })
-// }
+let intervalNotification = setInterval(test, 1000)
 //
-// const notifySet = () => {
-//     Notification.requestPermission(() => (permission) {
-//         if (permission === 'granted') {
-//             setInterval(showNotification, 60000)
-//         }
-//     })
-//      if (Notification.permission === 'granted') {
-//         setInterval(showNotification, 60000);
-//     }
-// }
-
 
 window.onload = async () => {
     if (JSON.parse(localStorage.getItem('task'))) {
@@ -128,7 +118,7 @@ window.onload = async () => {
         addListToHtml(taskTodoList, enums.taskStatuses.TODO);
         changeTaskStatus();
     }
-
+    notifyMe()
 
 }
 
