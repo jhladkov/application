@@ -23,22 +23,11 @@
             <form class="form">
                 <input class="task"
                        type="text">
-                <button class="btn">Add a new task</button>
+                <button class="btn our">Add a new task</button>
             </form>
         </div>
     </div>
     <div class="container">
-        <div class="time-inner">
-            <select class="select"> Время уведомлений
-                <option class="select-item" value="1">Каждый 1 час</option>
-                <option class="select-item" value="3">Каждые 3 часа</option>
-                <option class="select-item" value="6">Каждые 6 часов</option>
-                <option class="select-item" value="8">Каждые 8 часов</option>
-                <option class="select-item" value="10">Каждые 10 часов</option>
-                <option class="select-item" value="disable">Без уведомлений</option>
-            </select>
-            <button class="save-time btn">Сохранить</button>
-        </div>
         <h2>
             <span>To Do</span>
             <span class="mask-num"></span>
@@ -53,7 +42,32 @@
         <ul class="mask-list complete-list">
 
         </ul>
+        <div class="call-color-chart">
+            <img src="img/Todo-img.jpg" alt="">
+        </div>
     </div>
+    <div class="color-chart">
+        <div class="header-color">
+            <h5>Header</h5>
+            <div class="colors">
+                <div class="color-chart-item-header blue" id="#12c0dd"></div>
+                <div class="color-chart-item-header yellowgreen" id="yellowgreen"></div>
+                <div class="color-chart-item-header purple" id="#7d25a9"></div>
+                <div class="color-chart-item-header blue1" id="#1a1adc"></div>
+            </div>
+        </div>
+        <div class="button-color">
+            <h5>Buttons</h5>
+            <div class="colors">
+                <div class="color-chart-item-button blue" id="#0dd6f8"></div>
+                <div class="color-chart-item-button limegreen" id="limegreen"></div>
+                <div class="color-chart-item-button purple1" id="#a807fa"></div>
+                <div class="color-chart-item-button blue2" id="#0d0da2"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="shadow"></div>
 </div>
 <script src="app.js"></script>
 </body>
