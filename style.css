@@ -1,6 +1,13 @@
 .none{
     display: none;
 }
+html{
+    height: 100%;
+}
+body{
+    min-height: 100%;
+    position: relative;
+}
 ul,li{
     margin: 0;
 }
@@ -282,7 +289,7 @@ input[type="checkbox"]:not(:checked) + span::after{
     background-color: white;
     visibility: hidden;
     position: absolute;
-    top: 16%;
+    top: 23%;
     left: 50%;
     z-index: 13;
     transform: translate(-50%,-50%);
@@ -326,5 +333,5 @@ h5{
     flex-wrap: wrap;
 }
 #app{
-    position: relative;
+    height: 100%;
 }
