@@ -14,11 +14,14 @@ const colorChartItemButtons = document.querySelectorAll('.color-chart-item-butto
 let buttons = document.querySelectorAll('.our')
 
 const addColorManagement = () => {
+    document.body.style.overflow = 'hidden';
     backgroundShadow.classList.add('active');
-    colorChart.classList.add('active')
+    colorChart.classList.add('active');
+    window.scrollTo({top:colorChart.getBoundingClientRect().top,behavior: 'smooth'})
 }
 
 const removeColorManagement = () => {
+    document.body.style.overflow = 'auto';
     backgroundShadow.classList.remove('active')
     colorChart.classList.remove('active')
 }
